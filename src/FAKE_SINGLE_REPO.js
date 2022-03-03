@@ -90,7 +90,8 @@ export const FAKE_SINGLE_REPO = {
   allow_forking: true,
   is_template: false,
   topics: [
-
+    'js',
+    'david'
   ],
   visibility: 'public',
   forks: 1687,

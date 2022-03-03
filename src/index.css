@@ -8,10 +8,10 @@
     visibility: visible;
 }
 
-.repoListPage {
-    @apply w-full min-h-screen flex justify-center
+.Page {
+    @apply w-full min-h-screen flex justify-center pt-10 md:pt-20 pb-10
 }
 
-.repoListPageContainer {
-    @apply relative h-full md:w-2/3 w-full bg-white flex flex-col items-center rounded-2xl
+.PageContainer {
+    @apply relative md:w-2/3 w-full bg-white flex flex-col items-center rounded-2xl
 }

@@ -7,10 +7,10 @@ import Trending from './Trending'
 
 const AppRouter = () => {
   return (
-      <div className={'pt-10 md:pt-20 md:bg-dcard-dark-blue pb-10'}>
+      <div className={'md:bg-dcard-dark-blue'}>
         <Routes>
-          <Route path={'/user/:username/repos/:repo'} element={<RepoPage />} />
-          <Route path={'/user/:username/repos'} element={<UserSearch />} />
+          <Route path={'/users/:username/repos/:repo'} element={<RepoPage />} />
+          <Route path={'/users/:username/repos'} element={<UserSearch />} />
           <Route path={'/'} exact element={<Trending />} />
         </Routes>
       </div>

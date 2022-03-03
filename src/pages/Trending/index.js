@@ -47,8 +47,8 @@ const Trending = () => {
   }, [])
 
   return (
-      <div className={'repoListPage'}>
-        <div className={'repoListPageContainer'}>
+      <div className={'Page'}>
+        <div className={'PageContainer'}>
           <Header header={'Trending'}/>
           {
             length > 0
