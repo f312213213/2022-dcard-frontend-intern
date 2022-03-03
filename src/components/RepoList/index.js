@@ -1,28 +1,39 @@
 import React from 'react'
-import { FixedSizeList as List } from 'react-window'
-import AutoSizer from 'react-virtualized-auto-sizer'
+import { List, WindowScroller, AutoSizer } from 'react-virtualized'
 
 import Repo from '../Repo'
 import { FAKE_REPOS as repos } from '../../FAKE_REPOS'
 // import RepoLoader from './components/RepoLoader'
-const AllRows = () => repos.map(repo => <Repo repo={repo} key={repo.id}/>)
 
-const RepoList = ({ repos }) => {
+const AllRows = ({ index, key, style }) => {
   return (
-        <AutoSizer>
-          {({ height, width }) => (
-              <List
-                  className={'divide-y divide-gray-300 w-full px-4 min-h-screen -translate-x-1/2'}
-                  height={height}
-                  itemCount={1}
-                  itemSize={repos.length}
-                  width={width}
-              >
-                {AllRows}
-              </List>
+      <div key={key} style={style}>
+        <Repo repo={repos[index]} key={repos[index].id}/>
+      </div>
+  )
+}
+const RepoList = () => {
+  return (
+      <div className={'divide-y divide-gray-300 w-full px-4 min-h-screen'}>
+        <WindowScroller>
+          {({ height, scrollTop }) => (
+              <AutoSizer disableHeight>
+                {({ width }) => (
+                    <List
+                        autoHeight
+                        height={height}
+                        width={width}
+                        scrollTop={scrollTop}
+                        rowHeight={148}
+                        rowRenderer={AllRows}
+                        rowCount={repos.length}
+                        overscanRowCount={5}
+                    />
+                )}
+              </AutoSizer>
           )}
-        </AutoSizer>
-
+        </WindowScroller>
+      </div>
   )
 }
 

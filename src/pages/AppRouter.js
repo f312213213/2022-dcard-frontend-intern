@@ -7,7 +7,7 @@ import Trending from './Trending'
 
 const AppRouter = () => {
   return (
-      <div className={'pt-10 md:pt-20 md:bg-dcard-dark-blue min-h-screen pb-10'}>
+      <div className={'pt-10 md:pt-20 md:bg-dcard-dark-blue pb-10'}>
         <Routes>
           <Route path={'/user/:username/repos/:repo'} element={<RepoPage />} />
           <Route path={'/user/:username/repos'} element={<UserSearch />} />
