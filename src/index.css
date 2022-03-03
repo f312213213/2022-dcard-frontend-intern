@@ -7,3 +7,11 @@
     transform: translate(0) scale(1);
     visibility: visible;
 }
+
+.repoListPage {
+    @apply w-full min-h-screen flex justify-center
+}
+
+.repoListPageContainer {
+    @apply relative h-full md:w-2/3 w-full bg-white flex flex-col items-center rounded-2xl
+}
