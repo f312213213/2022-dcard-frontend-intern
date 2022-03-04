@@ -15,3 +15,7 @@
 .PageContainer {
     @apply relative md:w-2/3 w-full bg-white flex flex-col items-center rounded-2xl
 }
+
+.Modal {
+    @apply bg-gray-500 opacity-80 z-50 fixed top-0
+}
