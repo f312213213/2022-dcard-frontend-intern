@@ -12,7 +12,7 @@ const SnackbarBase = ({ open, message, type }) => {
     if (reason === 'clickaway') {
       return
     }
-    dispatch(actions.snackbar.closeSnackbar())
+    dispatch(actions.app.closeSnackbar())
   }
 
   return (

@@ -13,3 +13,7 @@ export const userRepoAdd = (addedRepo) => ({
 export const userRepoClean = () => ({
   type: actionTypes.USER_REPO_CLEAN
 })
+
+export const userRepoNoMore = () => ({
+  type: actionTypes.USER_REPO_NO_MORE
+})

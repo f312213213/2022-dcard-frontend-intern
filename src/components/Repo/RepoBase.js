@@ -10,7 +10,7 @@ const RepoBase = ({ repo }) => {
         </div>
         <span className={'text-sm text-gray-500 text-truncate'}>
           {repo.description
-            ? repo.description.length > 30 ? repo.description.substring(0, 150) + '...' : repo.description
+            ? repo.description.length > 100 ? repo.description.substring(0, 100) + '...' : repo.description
             : '作者還在努力寫簡介'}
         </span>
 

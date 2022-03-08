@@ -13,3 +13,7 @@ export const trendingRepoAdd = (addedRepo) => ({
 export const trendingRepoClean = () => ({
   type: actionTypes.TRENDING_REPO_CLEAN
 })
+
+export const trendingRepoNoMore = () => ({
+  type: actionTypes.TRENDING_REPO_NO_MORE
+})

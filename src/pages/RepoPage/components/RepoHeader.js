@@ -5,7 +5,7 @@ const RepoHeader = ({ repo }) => {
   return (
       <header className={'flex justify-between items-center w-full mb-4'}>
         <div className={'flex items-center space-x-4'}>
-          <img src={repo.owner.avatar_url} alt={repo.owner.login} className={'rounded-full w-12 h-12'}/>
+          <img src={repo.owner.avatar_url} alt={repo.owner.login} className={'rounded-full w-12 h-12 border border-dcard-dark-blue'}/>
           <h3>{repo.owner.login}</h3>
         </div>
         <a href={repo.html_url} target={'_blank'} referrerPolicy={'no-referrer'} rel="noreferrer" >

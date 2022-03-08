@@ -1,3 +1,0 @@
-export default {
-  USER_REPO_PAGE_ADD: 'USER_REPO_PAGE/USER_REPO_PAGE_ADD'
-}
