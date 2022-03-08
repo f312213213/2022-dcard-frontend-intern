@@ -11,7 +11,7 @@ const Repo = ({ repo, type }) => {
   const dispatch = useDispatch()
 
   const showModal = () => {
-    dispatch(actions.modal.showModal())
+    dispatch(actions.app.showModal())
   }
 
   if (type === 'trending') {

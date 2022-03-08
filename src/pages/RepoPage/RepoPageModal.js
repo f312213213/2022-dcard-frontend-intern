@@ -6,7 +6,7 @@ import RepoHeader from './components/RepoHeader'
 import RepoBody from './components/RepoBody'
 import Statistic from './components/Statistic'
 import actions from '../../redux/actions'
-import useModal from '../../hooks/useModal'
+import { useModal } from '../../hooks/app'
 import RepoPageLoader from './components/RepoPageLoader'
 
 const RepoPageModal = () => {
@@ -19,7 +19,7 @@ const RepoPageModal = () => {
 
   const leaveModal = () => {
     navigate(-1)
-    dispatch(actions.modal.closeModal())
+    dispatch(actions.app.closeModal())
   }
 
   const handleClick = (e) => {

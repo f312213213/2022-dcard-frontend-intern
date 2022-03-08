@@ -8,6 +8,7 @@ import Repo from '../../components/Repo'
 import { useUserRepo } from '../../hooks/repo'
 import actions from '../../redux/actions'
 import RepoLoader from '../../components/RepoLoader'
+import { useLoading } from '../../hooks/app'
 // import { FAKE_REPOS as repos } from '../../FAKE_REPOS'
 
 const UserSearch = () => {
@@ -23,6 +24,7 @@ const UserSearch = () => {
   const { username } = useParams()
   const repos = useUserRepo()
   const dispatch = useDispatch()
+  const loading = useLoading()
 
   useEffect(() => {
     const getFirstTenUserRepos = async () => {
@@ -36,8 +38,11 @@ const UserSearch = () => {
         dispatch(actions.app.loadingFalse())
         dispatch(actions.userRepo.userRepoInit(responseJson))
       } catch (err) {
+        if (err.message === 'Not Found') {
+          return dispatch(actions.app.showSnackbar('error', '找不到這個使用者 ！'))
+        }
         if (err.message.indexOf('API') !== -1) {
-          dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))
+          return dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))
         }
       }
     }
@@ -50,7 +55,10 @@ const UserSearch = () => {
         <div className={'Page'}>
           <div className={'PageContainer'}>
             <Header header={`${username}' s repo`}/>
-            <RepoList type={'user'} username={username} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length + 1}/>
+            <RepoList type={'user'} username={username} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length}/>
+            {
+                loading && <RepoLoader />
+            }
           </div>
         </div>
       </>

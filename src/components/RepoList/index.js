@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { List, WindowScroller, AutoSizer } from 'react-virtualized'
 import { useDispatch } from 'react-redux'
 
 import actions from '../../redux/actions'
-import { useLoading } from '../../hooks/loading'
 import { useTrendingHaveMore, useTrendingRepoPage, useUserRepoHaveMore, useUserRepoPage } from '../../hooks/repo'
+import { useLoading } from '../../hooks/app'
 // import RepoLoader from '../RepoLoader'
 
 const RepoList = ({ renderer, count, type, username }) => {
@@ -16,17 +16,18 @@ const RepoList = ({ renderer, count, type, username }) => {
 
   const handleScroll = () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading && haveMore) {
+      dispatch(actions.app.loadingTrue())
       getTenMoreRepo()
     }
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', () => handleScroll())
-  }, [window.scrollY])
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [loading])
 
   // FIXME 滾到底沒有觸發
   const getTenMoreRepo = async () => {
-    dispatch(actions.app.loadingTrue())
     try {
       if (type === 'user') {
         const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=10&sort=pushed&page=${userRepoPage}`)
@@ -35,8 +36,7 @@ const RepoList = ({ renderer, count, type, username }) => {
         }
         const responseJson = await response.json()
         if (responseJson.length < 10) {
-          dispatch(actions.userRepo.userRepoNoMore())
-          console.log(haveMore)
+          dispatch(actions.userRepo.userRepoNoMore(dispatch))
         }
         setTimeout(() => {
           dispatch(actions.userRepo.userRepoAdd(responseJson))
@@ -45,7 +45,6 @@ const RepoList = ({ renderer, count, type, username }) => {
         return
       }
       // trending
-      console.log(trendingRepoPage)
       const response = await fetch(`https://api.github.com/search/repositories?q=stars:%3E10000&sort=stars&per_page=10&page=${trendingRepoPage}`)
       if (response.status !== 200) {
         throw await response.json()
@@ -53,10 +52,8 @@ const RepoList = ({ renderer, count, type, username }) => {
       const responseJson = await response.json()
       const trendingRepo = responseJson.items
       if (trendingRepo.length < 10) dispatch(actions.trendingRepo.trendingRepoNoMore())
-      setTimeout(() => {
-        dispatch(actions.trendingRepo.trendingRepoAdd(trendingRepo))
-        dispatch(actions.app.loadingFalse())
-      }, 1000)
+      dispatch(actions.trendingRepo.trendingRepoAdd(trendingRepo))
+      dispatch(actions.app.loadingFalse())
     } catch (err) {
       if (err.message.indexOf('API') !== -1) {
         dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))
@@ -64,10 +61,10 @@ const RepoList = ({ renderer, count, type, username }) => {
     }
   }
   return (
-      <div className={'divide-y divide-gray-300 w-full px-4 min-h-screen'} >
+      <div className={'divide-y divide-gray-300 w-full px-4 min-h-screen'}>
           <WindowScroller>
             {({ height, scrollTop }) => (
-                <div>
+                <div className={'h-full flex-1'} onScroll={() => console.log('scroll')}>
                   <AutoSizer disableHeight>
                     {({ width }) => (
                           <List

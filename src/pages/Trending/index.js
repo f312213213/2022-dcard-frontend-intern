@@ -8,6 +8,7 @@ import Repo from '../../components/Repo'
 import { useTrendingRepo } from '../../hooks/repo'
 import actions from '../../redux/actions'
 import RepoLoader from '../../components/RepoLoader'
+import { useLoading } from '../../hooks/app'
 // import { FAKE_REPOS as repos } from '../../FAKE_REPOS'
 
 const Trending = () => {
@@ -23,6 +24,7 @@ const Trending = () => {
 
   const repos = useTrendingRepo()
   const dispatch = useDispatch()
+  const loading = useLoading()
 
   useEffect(() => {
     const getFirstTenTrendingRepos = async () => {
@@ -51,7 +53,10 @@ const Trending = () => {
         <div className={'Page'}>
           <div className={'PageContainer'}>
             <Header header={'Trending'}/>
-            <RepoList type={'trending'} username={''} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length + 1}/>
+            <RepoList type={'trending'} username={''} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length}/>
+            {
+              loading && <RepoLoader />
+            }
           </div>
         </div>
       </>

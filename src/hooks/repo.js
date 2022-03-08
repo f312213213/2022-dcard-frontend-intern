@@ -12,7 +12,7 @@ export const useUserRepoPage = () => {
   return useSelector(state => state.userRepo.page)
 }
 
-export const useUserRepoHaveMore = () => {
+export const useUserRepoHaveMore = (dispatch) => {
   return useSelector(state => state.userRepo.haveMore)
 }
 

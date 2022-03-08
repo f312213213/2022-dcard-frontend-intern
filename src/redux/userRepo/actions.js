@@ -1,4 +1,5 @@
 import actionTypes from './ActionTypes'
+import actions from '../actions'
 
 export const userRepoInit = (initRepo) => ({
   type: actionTypes.USER_REPO_INIT,
@@ -14,6 +15,9 @@ export const userRepoClean = () => ({
   type: actionTypes.USER_REPO_CLEAN
 })
 
-export const userRepoNoMore = () => ({
-  type: actionTypes.USER_REPO_NO_MORE
-})
+export const userRepoNoMore = (dispatch) => {
+  dispatch(actions.app.showSnackbar('info', '沒有更多Repo囉！'))
+  return {
+    type: actionTypes.USER_REPO_NO_MORE
+  }
+}

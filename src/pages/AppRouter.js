@@ -5,12 +5,12 @@ import UserSearch from './UserSearch'
 import RepoPage from './RepoPage'
 import Trending from './Trending'
 import RepoPageModal from './RepoPage/RepoPageModal'
-import useModal from '../hooks/useModal'
+import { useModal } from '../hooks/app'
 
 const AppRouter = () => {
   const modal = useModal()
   return (
-      <div className={'md:bg-dcard-dark-blue'}>
+      <div className={'md:bg-dcard-dark-blue'} onScroll={() => console.log('scroll')}>
         <Routes>
           <Route path={'/trending'} exact element={<Trending />} >
             {
