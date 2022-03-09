@@ -2,6 +2,7 @@ import React, { createRef } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+
 import actions from '../../../redux/actions'
 
 const InputSearch = () => {

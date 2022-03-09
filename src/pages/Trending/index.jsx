@@ -9,7 +9,6 @@ import { useTrendingRepo } from '../../hooks/repo'
 import actions from '../../redux/actions'
 import RepoLoader from '../../components/RepoLoader'
 import { useLoading } from '../../hooks/app'
-// import { FAKE_REPOS as repos } from '../../FAKE_REPOS'
 
 const Trending = () => {
   const AllRows = ({ index, key, style }) => {
@@ -36,24 +35,8 @@ const Trending = () => {
   }, [])
 
   useEffect(() => {
-    const getFirstTenTrendingRepos = async () => {
-      dispatch(actions.app.loadingTrue())
-      try {
-        const response = await fetch('https://api.github.com/search/repositories?q=stars:%3E10000&sort=stars&per_page=10&page=1')
-        if (response.status !== 200) {
-          throw await response.json()
-        }
-        const responseJson = await response.json()
-        const trendingRepo = responseJson.items
-        dispatch(actions.trendingRepo.trendingRepoInit(dispatch, trendingRepo))
-      } catch (err) {
-        if (err.message.indexOf('API') !== -1) {
-          dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
-        }
-      }
-    }
     if (repos.length < 1) {
-      getFirstTenTrendingRepos()
+      dispatch(actions.trendingRepo.trendingGetFirstTenRepo(dispatch))
     }
   }, [])
 

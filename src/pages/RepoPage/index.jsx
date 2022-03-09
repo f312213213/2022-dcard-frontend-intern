@@ -23,25 +23,8 @@ const RepoPage = () => {
     dispatch(actions.seo.seoChange(metaData))
   }, [])
 
-  const getRepoData = async () => {
-    try {
-      const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`)
-      if (response.status !== 200) {
-        throw await response.json()
-      }
-      const responseJson = await response.json()
-      if (!isCancelled.current) setRepo(responseJson)
-    } catch (err) {
-      if (err.message === 'Not Found') {
-        dispatch(actions.app.showSnackbar('error', '找不到這個 Repo ！'))
-      } else if (err.message.indexOf('API') !== -1) {
-        dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
-      }
-    }
-  }
-
   useEffect(() => {
-    getRepoData()
+    dispatch(actions.app.getSingleRepoData(dispatch, username, repoName, setRepo, isCancelled))
     return () => {
       isCancelled.current = true
     }

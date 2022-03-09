@@ -51,20 +51,28 @@ npm start
 ***
 
 ## 資料架構說明
-
-
 ***
 ### `Redux`
-主要的功能再這裡實現，包括：
+> 將會大量使用的 function 以及資料存進 redux
+> 透過 dispatch(actions.----) 可以快速方便的使用一些需要全域狀態改動的函式，
+> 以及可以保持 jsx 裡程式碼的易讀性。
+> 
+> 像是呼叫 snackbar 或是進入 loading 狀態以及取得 repo 的 function 。
 
-#### 左方回到熱門（首頁）
-> 單純的頁面跳轉功能
+### `Custom Hook`
+> 將會頻繁使用到的資料寫成 hooks 可以直接取得資料，不需再額外 import useSelector
 
-**
+***
 ## 額外補充
+### CI/CD
+> 引入了 CI/CD 將部署流程透過 Github Action 自動化
 ### 版面設計
-> 因為是為了投 Dcard 所做的網站，在設計上是以 Dcard 本人的樣式做為參考。
+> 因為這是為了投 Dcard 所做的網站，在設計上是以 Dcard 本人的樣式做為參考。
 ### 增進效能
-> 使用 React - virtualized 框架增進效能。
+> 使用 React - virtualized 框架增進效能，避免於畫面沒顯示的地方渲染出多餘的 repo。
 ### 例外狀況
 > 利用 mui 的 snackbar 來提示錯誤的發生
+### 響應式設計
+> 針對畫面較小裝置進行版面重配置。
+### eslint
+> 使用 eslint standard 來矯正自己醜醜的 code
