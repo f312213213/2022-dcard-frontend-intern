@@ -14,12 +14,20 @@ const RepoPageModal = () => {
   const navigate = useNavigate()
   const { username, repoName } = useParams()
   const divRef = useRef()
+  const isCancelled = useRef(false)
   const modal = useModal()
   const [repo, setRepo] = useState({})
 
+  const metaData = {
+    title: `${repoName} | Github Explorer`,
+    description: `${repoName} 在 GitHub 上的repo資料`
+  }
+
   const leaveModal = () => {
     navigate(-1)
-    dispatch(actions.app.closeModal())
+    setTimeout(() => {
+      dispatch(actions.app.closeModal())
+    }, 100)
   }
 
   const handleClick = (e) => {
@@ -35,7 +43,7 @@ const RepoPageModal = () => {
         throw await response.json()
       }
       const responseJson = await response.json()
-      setRepo(responseJson)
+      if (!isCancelled.current) setRepo(responseJson)
     } catch (err) {
       if (err.message === 'Not Found') {
         dispatch(actions.app.showSnackbar('error', '找不到這個 Repo ！'))
@@ -46,18 +54,24 @@ const RepoPageModal = () => {
   }
 
   useEffect(() => {
+    dispatch(actions.seo.seoChange(metaData))
+  }, [])
+
+  useEffect(() => {
     getRepoData()
+    return () => {
+      isCancelled.current = true
+    }
   }, [])
 
   return (
-      <>
-        <nav className={'md:hidden flex w-full bg-dcard-dark-blue absolute top-0 z-50 text-white p-4 justify-center items-center'}>
-          <button onClick={leaveModal}>
-            ＜
-          </button>
-        </nav>
         <div className={'Page items-center Modal'} onClick={handleClick} ref={divRef}>
-          <div className={'PageContainer h-screen md:h-96 p-8 z-50'}>
+          <div className={'md:hidden flex w-full bg-dcard-dark-blue absolute top-0 z-50 text-white p-4 justify-center items-center'}>
+            <button onClick={leaveModal}>
+              Ｘ
+            </button>
+          </div>
+          <div className={'PageContainer h-screen md:h-96 p-8 z-40'}>
             {
               repo.full_name
                 ? <>
@@ -69,8 +83,6 @@ const RepoPageModal = () => {
             }
           </div>
         </div>
-      </>
-
   )
 }
 

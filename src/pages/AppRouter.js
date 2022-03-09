@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
 
 import UserSearch from './UserSearch'
@@ -9,6 +9,13 @@ import { useModal } from '../hooks/app'
 
 const AppRouter = () => {
   const modal = useModal()
+  useEffect(() => {
+    if (modal) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [modal])
   return (
       <div className={'md:bg-dcard-dark-blue'}>
         <Routes>

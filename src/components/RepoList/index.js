@@ -13,7 +13,6 @@ const RepoList = ({ renderer, count, type, username }) => {
   const userRepoPage = useUserRepoPage()
   const trendingRepoPage = useTrendingRepoPage()
   const haveMore = type === 'user' ? useUserRepoHaveMore() : useTrendingHaveMore()
-  const [page, setPage] = useState(0)
 
   const handleScroll = () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading && haveMore) {
@@ -31,7 +30,6 @@ const RepoList = ({ renderer, count, type, username }) => {
     try {
       if (type === 'user') {
         const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=10&sort=pushed&page=${userRepoPage}`)
-        setPage(userRepoPage)
         if (response.status !== 200) {
           throw await response.json()
         }
@@ -44,7 +42,6 @@ const RepoList = ({ renderer, count, type, username }) => {
       }
       // trending
       const response = await fetch(`https://api.github.com/search/repositories?q=stars:%3E10000&sort=stars&per_page=10&page=${trendingRepoPage}`)
-      setPage(trendingRepoPage)
       if (response.status !== 200) {
         throw await response.json()
       }

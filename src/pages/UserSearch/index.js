@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams, Outlet } from 'react-router-dom'
 
@@ -25,6 +25,15 @@ const UserSearch = () => {
   const repos = useUserRepo()
   const dispatch = useDispatch()
   const loading = useLoading()
+  const [searchName, setSearchName] = useState('')
+  const metaData = {
+    title: `「${username}」 的搜尋結果 | Github Explorer`,
+    description: `在 Github 上搜尋「${username}」的結果`
+  }
+
+  useEffect(() => {
+    dispatch(actions.seo.seoChange(metaData))
+  }, [])
 
   useEffect(() => {
     const getFirstTenUserRepos = async () => {
@@ -50,6 +59,8 @@ const UserSearch = () => {
         }
       }
     }
+    if (username === searchName) return
+    setSearchName(username)
     getFirstTenUserRepos()
   }, [username])
 

@@ -26,6 +26,15 @@ const Trending = () => {
   const dispatch = useDispatch()
   const loading = useLoading()
 
+  const metaData = {
+    title: 'Trending | Github Explorer',
+    description: 'Trending repo on Github.'
+  }
+
+  useEffect(() => {
+    dispatch(actions.seo.seoChange(metaData))
+  }, [])
+
   useEffect(() => {
     const getFirstTenTrendingRepos = async () => {
       dispatch(actions.app.loadingTrue())
