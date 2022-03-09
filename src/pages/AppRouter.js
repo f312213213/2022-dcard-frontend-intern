@@ -10,7 +10,7 @@ import { useModal } from '../hooks/app'
 const AppRouter = () => {
   const modal = useModal()
   return (
-      <div className={'md:bg-dcard-dark-blue'} onScroll={() => console.log('scroll')}>
+      <div className={'md:bg-dcard-dark-blue'}>
         <Routes>
           <Route path={'/trending'} exact element={<Trending />} >
             {

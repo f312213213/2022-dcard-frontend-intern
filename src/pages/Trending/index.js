@@ -36,8 +36,7 @@ const Trending = () => {
         }
         const responseJson = await response.json()
         const trendingRepo = responseJson.items
-        dispatch(actions.trendingRepo.trendingRepoInit(trendingRepo))
-        dispatch(actions.app.loadingFalse())
+        dispatch(actions.trendingRepo.trendingRepoInit(dispatch, trendingRepo))
       } catch (err) {
         if (err.message.indexOf('API') !== -1) {
           dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))

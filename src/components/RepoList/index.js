@@ -35,13 +35,10 @@ const RepoList = ({ renderer, count, type, username }) => {
           throw await response.json()
         }
         const responseJson = await response.json()
-        if (responseJson.length < 10) {
-          dispatch(actions.userRepo.userRepoNoMore(dispatch))
-        }
         setTimeout(() => {
-          dispatch(actions.userRepo.userRepoAdd(responseJson))
-          dispatch(actions.app.loadingFalse())
-        }, 1000)
+          if (responseJson.length < 10) dispatch(actions.userRepo.userRepoNoMore(dispatch))
+          dispatch(actions.userRepo.userRepoAdd(dispatch, responseJson))
+        }, 500)
         return
       }
       // trending
@@ -51,9 +48,10 @@ const RepoList = ({ renderer, count, type, username }) => {
       }
       const responseJson = await response.json()
       const trendingRepo = responseJson.items
-      if (trendingRepo.length < 10) dispatch(actions.trendingRepo.trendingRepoNoMore())
-      dispatch(actions.trendingRepo.trendingRepoAdd(trendingRepo))
-      dispatch(actions.app.loadingFalse())
+      setTimeout(() => {
+        if (trendingRepo.length < 10) dispatch(actions.trendingRepo.trendingRepoNoMore(dispatch))
+        dispatch(actions.trendingRepo.trendingRepoAdd(dispatch, trendingRepo))
+      }, 500)
     } catch (err) {
       if (err.message.indexOf('API') !== -1) {
         dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))

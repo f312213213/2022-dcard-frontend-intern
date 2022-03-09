@@ -35,8 +35,10 @@ const UserSearch = () => {
           throw await response.json()
         }
         const responseJson = await response.json()
-        dispatch(actions.app.loadingFalse())
-        dispatch(actions.userRepo.userRepoInit(responseJson))
+        if (responseJson.length < 10) {
+          dispatch(actions.userRepo.userRepoNoMore(dispatch))
+        }
+        dispatch(actions.userRepo.userRepoInit(dispatch, responseJson))
       } catch (err) {
         if (err.message === 'Not Found') {
           return dispatch(actions.app.showSnackbar('error', '找不到這個使用者 ！'))

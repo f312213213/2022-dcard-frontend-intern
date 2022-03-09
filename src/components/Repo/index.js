@@ -21,7 +21,7 @@ const Repo = ({ repo, type }) => {
             <div className={'flex items-center space-x-2 mb-3'}>
               <div className={'text-sm'}>
             <span className={'text-gray-500'}>
-              {repo.pushed_at.substring(0, 10)}．{repo.language}
+              {repo.owner.login}．{repo.pushed_at.substring(0, 10)}
             </span>
               </div>
             </div>
