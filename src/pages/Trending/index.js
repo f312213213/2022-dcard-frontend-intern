@@ -48,6 +48,10 @@ const Trending = () => {
     }
   }, [])
 
+  useEffect(() => {
+    dispatch(actions.app.loadingFalse())
+  }, [])
+
   return (
       <>
         <Outlet />
