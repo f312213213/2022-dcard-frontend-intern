@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import SnackbarBase from './SnackbarBase'
 
 const Snackbars = () => {
-  const snackbarStatus = useSelector(state => state.snackbar)
+  const snackbarStatus = useSelector(state => state.app.snackbar)
   return (
       <>
         {

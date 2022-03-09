@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Dcard 2022 Web Frontend Intern Homework
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+這個網站是用來申請 Dcard 暑期前端實習的功課
+[連結可點這裡(右鍵開新分頁)](https://dcard-hw.chiendavid.com/)
 
-## Available Scripts
+## 啟動說明
 
-In the project directory, you can run:
+直接開啟上方連結即可進入線上環境（使用 firebase hosting）
 
-### `npm start`
+若需在 local 端執行則將 repo clone 下來後執行
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+npm start
+```
 
-### `npm test`
+## 架構說明
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+網站主要分為上方 navbar 跟下方資料呈現區域
+***
+### `Navbar`
+主要的功能再這裡實現，包括：
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### 左方回到熱門（首頁）
+> 單純的頁面跳轉功能
+#### 中間的搜尋欄
+> 用 ref 監聽使用者輸入，當使用者按下搜尋按鈕時，會將網址導引至 /users/{username}/repos。
+>
+#### 右方的最近搜尋欄
+>會將最近瀏覽的三個 username 存至 localStorage，且會自動重新排序。
+>
+> 點擊裡面的使用者名稱後，會將網址導引至 /users/{username}/repos。
+***
+### `資料呈現區域`
+資料都在這呈現，包括：
+#### 熱門頁面 <Route = '/trending'>
+> 就是單純的一頁，fetch 的資料為 github 上星星最多的排序
+#### 使用者搜尋頁面 <Route = '/users/:username/repos'>
+> 從 url params 取得 username ，然後 render 出該使用者的搜尋結果，使用 useEffect fetch 到資料後存至 redux 並顯示出來。
+>
+> 畫面中每一 row 的 repo 點擊後都會將網址導引至 /users/{username}/repos/{repo}
+>
+> Lazy Loading 實作的方式是利用 url parameters ?perpage=10&page=1 並搭配 State 控制頁數，於滾動至底部時觸發。
+#### 單一 repo 頁面 <Route = '/users/:username/repos/:repoName'>
+> 因題目要求串接 GET /repos/{owner}/{repo} 回傳的資料，因此就沒有從 redux 傳入資料
+>
+> 從 url params 取得 username 及 repoName ，然後 render 出該使用者該 repo 的搜尋結果出來。
+>
+> 呈現方式分為 Page 跟 Modal ，依照不同的進入方式 render 畫面。
+***
+## 額外補充
+### 版面設計
+> 因為是為了投 Dcard 所做的網站，在設計上是以 Dcard 本人的樣式做為參考。

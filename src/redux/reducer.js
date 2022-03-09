@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 
 import userRepo from './userRepo/reducer'
-import snackbar from './snackbar/reducer'
+import trendingRepo from './trendingRepo/reducer'
+import app from './app/reducer'
 
 export default combineReducers({
   userRepo,
-  snackbar
+  trendingRepo,
+  app
 })

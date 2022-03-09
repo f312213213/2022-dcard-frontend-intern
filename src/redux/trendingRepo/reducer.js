@@ -8,23 +8,23 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case ActionTypes.USER_REPO_INIT:
+    case ActionTypes.TRENDING_REPO_INIT:
       return {
         ...state,
         repos: action.payload
       }
 
-    case ActionTypes.USER_REPO_ADD:
+    case ActionTypes.TRENDING_REPO_ADD:
       return {
         ...state,
         repos: [...state.repos, ...action.payload],
         page: state.page + 1
       }
 
-    case ActionTypes.USER_REPO_CLEAN:
+    case ActionTypes.TRENDING_REPO_CLEAN:
       return defaultState
 
-    case ActionTypes.USER_REPO_NO_MORE:
+    case ActionTypes.TRENDING_REPO_NO_MORE:
       return {
         ...state,
         haveMore: false

@@ -1,6 +1,9 @@
 import * as userRepo from './userRepo/actions'
-import * as snackbar from './snackbar/actions'
+import * as trendingRepo from './trendingRepo/actions'
+import * as app from './app/actions'
+
 export default {
   userRepo,
-  snackbar
+  trendingRepo,
+  app
 }
