@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
@@ -12,6 +12,16 @@ const RepoPage = () => {
   const { username, repoName } = useParams()
   const [repo, setRepo] = useState({})
   const dispatch = useDispatch()
+  const isCancelled = useRef(false)
+
+  const metaData = {
+    title: `${repoName} | Github Explorer`,
+    description: `${repoName} 在 GitHub 上的repo資料`
+  }
+
+  useEffect(() => {
+    dispatch(actions.seo.seoChange(metaData))
+  }, [])
 
   const getRepoData = async () => {
     try {
@@ -20,7 +30,7 @@ const RepoPage = () => {
         throw await response.json()
       }
       const responseJson = await response.json()
-      setRepo(responseJson)
+      if (!isCancelled.current) setRepo(responseJson)
     } catch (err) {
       if (err.message === 'Not Found') {
         dispatch(actions.app.showSnackbar('error', '找不到這個 Repo ！'))
@@ -32,6 +42,9 @@ const RepoPage = () => {
 
   useEffect(() => {
     getRepoData()
+    return () => {
+      isCancelled.current = true
+    }
   }, [])
   return (
       <div className={'Page items-center'}>

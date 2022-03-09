@@ -1,12 +1,16 @@
 import React, { createRef } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import actions from '../../../redux/actions'
 
 const InputSearch = () => {
   const searchRef = createRef()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSearch = () => {
+    if (searchRef.current.value === '') return dispatch(actions.app.showSnackbar('error', '請輸入使用者帳號唷！'))
     if (localStorage.ghex_recent) {
       if (localStorage.ghex_recent.indexOf(searchRef.current.value) === -1) {
         localStorage.ghex_recent = [searchRef.current.value, localStorage.ghex_recent]
