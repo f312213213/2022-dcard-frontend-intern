@@ -28,6 +28,7 @@ const UserSearch = () => {
 
   useEffect(() => {
     const getFirstTenUserRepos = async () => {
+      dispatch(actions.userRepo.userRepoClean(dispatch))
       dispatch(actions.app.loadingTrue())
       try {
         const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=10&sort=pushed&page=1`)
@@ -41,10 +42,11 @@ const UserSearch = () => {
         dispatch(actions.userRepo.userRepoInit(dispatch, responseJson))
       } catch (err) {
         if (err.message === 'Not Found') {
+          dispatch(actions.userRepo.userRepoClean(dispatch))
           return dispatch(actions.app.showSnackbar('error', '找不到這個使用者 ！'))
         }
         if (err.message.indexOf('API') !== -1) {
-          return dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))
+          return dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
         }
       }
     }

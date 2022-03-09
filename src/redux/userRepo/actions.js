@@ -17,9 +17,12 @@ export const userRepoAdd = (dispatch, addedRepo) => {
   }
 }
 
-export const userRepoClean = () => ({
-  type: actionTypes.USER_REPO_CLEAN
-})
+export const userRepoClean = (dispatch) => {
+  dispatch(actions.app.loadingFalse())
+  return {
+    type: actionTypes.USER_REPO_CLEAN
+  }
+}
 
 export const userRepoNoMore = (dispatch) => {
   dispatch(actions.app.showSnackbar('info', '沒有更多Repo囉！'))

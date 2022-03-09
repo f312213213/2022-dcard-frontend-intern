@@ -23,6 +23,8 @@ const AppRouter = () => {
             }
           </Route>
           <Route path={'/users/:username/repos/:repoName'} element={<RepoPage />} />
+          <Route path={'/trending/users/:username/repos/:repoName'} element={<RepoPage />} />
+
           <Route path={'*'} element={<Navigate to="/trending" />} />
         </Routes>
       </div>

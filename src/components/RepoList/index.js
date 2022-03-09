@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { List, WindowScroller, AutoSizer } from 'react-virtualized'
 import { useDispatch } from 'react-redux'
 
@@ -13,6 +13,7 @@ const RepoList = ({ renderer, count, type, username }) => {
   const userRepoPage = useUserRepoPage()
   const trendingRepoPage = useTrendingRepoPage()
   const haveMore = type === 'user' ? useUserRepoHaveMore() : useTrendingHaveMore()
+  const [page, setPage] = useState(0)
 
   const handleScroll = () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading && haveMore) {
@@ -24,13 +25,13 @@ const RepoList = ({ renderer, count, type, username }) => {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [loading])
+  }, [loading, userRepoPage, trendingRepoPage])
 
-  // FIXME 滾到底沒有觸發
   const getTenMoreRepo = async () => {
     try {
       if (type === 'user') {
         const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=10&sort=pushed&page=${userRepoPage}`)
+        setPage(userRepoPage)
         if (response.status !== 200) {
           throw await response.json()
         }
@@ -43,6 +44,7 @@ const RepoList = ({ renderer, count, type, username }) => {
       }
       // trending
       const response = await fetch(`https://api.github.com/search/repositories?q=stars:%3E10000&sort=stars&per_page=10&page=${trendingRepoPage}`)
+      setPage(trendingRepoPage)
       if (response.status !== 200) {
         throw await response.json()
       }
@@ -54,15 +56,16 @@ const RepoList = ({ renderer, count, type, username }) => {
       }, 500)
     } catch (err) {
       if (err.message.indexOf('API') !== -1) {
-        dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))
+        dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
       }
     }
   }
+
   return (
       <div className={'divide-y divide-gray-300 w-full px-4 min-h-screen'}>
           <WindowScroller>
             {({ height, scrollTop }) => (
-                <div className={'h-full flex-1'} onScroll={() => console.log('scroll')}>
+                <div className={'h-full flex-1'}>
                   <AutoSizer disableHeight>
                     {({ width }) => (
                           <List

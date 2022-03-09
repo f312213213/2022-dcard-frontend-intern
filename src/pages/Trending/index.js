@@ -39,11 +39,13 @@ const Trending = () => {
         dispatch(actions.trendingRepo.trendingRepoInit(dispatch, trendingRepo))
       } catch (err) {
         if (err.message.indexOf('API') !== -1) {
-          dispatch(actions.app.showSnackbar('error', 'Hit API limit!'))
+          dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
         }
       }
     }
-    getFirstTenTrendingRepos()
+    if (repos.length < 1) {
+      getFirstTenTrendingRepos()
+    }
   }, [])
 
   return (

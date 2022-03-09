@@ -25,7 +25,7 @@ const RepoPage = () => {
       if (err.message === 'Not Found') {
         dispatch(actions.app.showSnackbar('error', '找不到這個 Repo ！'))
       } else if (err.message.indexOf('API') !== -1) {
-        dispatch(actions.app.showSnackbar('error', 'API 達到伺服器上限了！'))
+        dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
       }
     }
   }

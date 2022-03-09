@@ -17,7 +17,7 @@ const Repo = ({ repo, type }) => {
   if (type === 'trending') {
     return (
         <Link to={`/trending/users/${repo.owner.login}/repos/${repo.name}`}>
-          <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded'} onClick={showModal}>
+          <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded border-b'} onClick={showModal}>
             <div className={'flex items-center space-x-2 mb-3'}>
               <div className={'text-sm'}>
             <span className={'text-gray-500'}>
@@ -32,7 +32,7 @@ const Repo = ({ repo, type }) => {
   } else if (type === 'user') {
     return (
         <Link to={`/users/${repo.owner.login}/repos/${repo.name}`}>
-          <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded'} onClick={showModal}>
+          <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded border-b'} onClick={showModal}>
             <div className={'flex items-center space-x-2 mb-3'}>
               <div className={'text-sm'}>
             <span className={'text-gray-500'}>

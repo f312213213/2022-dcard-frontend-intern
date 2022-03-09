@@ -48,10 +48,6 @@ npm start
 > 從 url params 取得 username 及 repoName ，然後 render 出該使用者該 repo 的搜尋結果出來。
 >
 > 呈現方式分為 Page 跟 Modal ，依照不同的進入方式 render 畫面。
-#### Topic 頁面 <Route = '/topic/:topic'>
-> 在單一 Repo 內如果有 topics 存在會以連結的形式顯示出來，點擊後導引頁面到此 Topic 頁面
->
-> 資料為相關主題的 Repo ，依星星數量排序。
 ***
 ## 額外補充
 ### 版面設計
