@@ -3,8 +3,8 @@ import ActionTypes from './ActionTypes'
 const defaultState = {
   snackbar: {
     show: false,
-    type: 'info',
-    message: ''
+    type: null,
+    message: null
   },
   modal: false,
   loading: false
