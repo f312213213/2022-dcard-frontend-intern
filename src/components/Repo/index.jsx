@@ -2,7 +2,6 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-// import { FAKE_SINGLE_REPO as repo } from '../../FAKE_SINGLE_REPO'
 import RepoBase from './RepoBase'
 import actions from '../../redux/actions'
 import RepoLoader from '../RepoLoader'
