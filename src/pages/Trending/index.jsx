@@ -9,6 +9,7 @@ import { useTrendingRepo } from '../../hooks/repo'
 import actions from '../../redux/actions'
 import RepoLoader from '../../components/RepoLoader'
 import { useLoading } from '../../hooks/app'
+import ExistNoRepo from '../../components/ExistNoRepo'
 
 const Trending = () => {
   const AllRows = ({ index, key, style }) => {
@@ -41,7 +42,7 @@ const Trending = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(actions.app.loadingFalse())
+    if (repos.length > 0) dispatch(actions.app.loadingFalse())
   }, [])
 
   return (
@@ -50,9 +51,18 @@ const Trending = () => {
         <div className={'Page'}>
           <div className={'PageContainer'}>
             <Header header={'Trending'}/>
-            <RepoList type={'trending'} username={''} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length}/>
+            {
+              repos.length !== 0 &&
+                <RepoList type={'trending'} username={''} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length}/>
+            }
+
             {
               loading && <RepoLoader />
+            }
+
+            {
+                repos.length === 0 && !loading &&
+                <ExistNoRepo />
             }
           </div>
         </div>
