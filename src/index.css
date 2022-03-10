@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    @apply relative
+}
+
 .dropdown:focus-within .dropdown-menu {
     opacity:1;
     transform: translate(0) scale(1);

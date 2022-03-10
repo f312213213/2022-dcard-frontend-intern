@@ -16,7 +16,7 @@ const RepoList = ({ renderer, count, type, username }) => {
   const handleScroll = () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading && haveMore) {
       dispatch(actions.app.loadingTrue())
-      dispatch(actions.app.getTenMoreRepo(dispatch, username, type, userRepoPage, trendingRepoPage))
+      dispatch(actions.app.getTenMoreRepo(dispatch, username, type))
     }
   }
 
