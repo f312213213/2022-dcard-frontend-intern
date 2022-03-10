@@ -1,5 +1,6 @@
 import ActionTypes from './ActionTypes'
 import actions from '../actions'
+import store from '../store'
 
 export const showModal = () => ({
   type: ActionTypes.SHOW_MODAL
@@ -29,7 +30,9 @@ export const closeSnackbar = () => ({
   type: ActionTypes.CLOSE_SNACKBAR
 })
 
-export const getTenMoreRepo = (dispatch, username, type, userRepoPage, trendingRepoPage) => async () => {
+export const getTenMoreRepo = (dispatch, username, type) => async () => {
+  const userRepoPage = store.getState().userRepo.page
+  const trendingRepoPage = store.getState().trendingRepo.page
   try {
     if (type === 'user') {
       const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=10&sort=pushed&page=${userRepoPage}`)

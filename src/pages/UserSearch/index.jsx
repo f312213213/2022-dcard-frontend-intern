@@ -9,6 +9,7 @@ import { useUserRepo } from '../../hooks/repo'
 import actions from '../../redux/actions'
 import RepoLoader from '../../components/RepoLoader'
 import { useLoading } from '../../hooks/app'
+import ExistNoRepo from '../../components/ExistNoRepo'
 
 const UserSearch = () => {
   const AllRows = ({ index, key, style }) => {
@@ -46,9 +47,18 @@ const UserSearch = () => {
         <div className={'Page'}>
           <div className={'PageContainer'}>
             <Header header={`${username}' s repo`}/>
-            <RepoList type={'user'} username={username} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length}/>
+            {
+              repos.length !== 0 &&
+                <RepoList type={'user'} username={username} renderer={AllRows} count={repos.length}/>
+            }
+
             {
                 loading && <RepoLoader />
+            }
+
+            {
+              repos.length === 0 && !loading &&
+                <ExistNoRepo />
             }
           </div>
         </div>
