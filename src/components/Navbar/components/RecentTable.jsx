@@ -40,11 +40,15 @@ const RecentTable = ({ setShowMS }) => {
                aria-labelledby={'headlessui-menu-button-1'} id={'headlessui-menu-items-117'} role={'menu'}>
             <div className={'py-1'}>
               {
-                recent.map((r, index) => (
+                recent.length > 0
+                  ? recent.map((r, index) => (
                     <Link to={`/users/${r}/repos`} key={index}>
                       <div onClick={() => clickHandler(r)} className={'text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left hover:bg-gray-300'}>{r}</div>
                     </Link>
-                ))
+                  ))
+                  : <div className={'text-gray-500 p-8 text-center'}>
+                      還沒有紀錄唷
+                    </div>
               }
             </div>
           </div>
@@ -52,11 +56,24 @@ const RecentTable = ({ setShowMS }) => {
 
         <div className={'md:hidden block flex w-full justify-center space-x-4 mt-4'}>
           {
-            recent.map((r, index) => (
-                <Link to={`/users/${r}/repos`} key={index}>
-                  <div onClick={() => clickHandler(r)} className={'transition text-gray-700 flex justify-between w-full px-4 py-2 border-2 text-sm leading-5 text-left hover:bg-gray-300 rounded-md'}>{r}</div>
-                </Link>
-            ))
+            recent.length > 0
+              ? <div className={'flex flex-col space-y-4'}>
+                  <span className={'text-center text-gray-500'}>
+                    最近搜尋過的紀錄
+                  </span>
+                  <div className={'flex flex-row space-x-4'}>
+                    {
+                      recent.map((r, index) => (
+                          <Link to={`/users/${r}/repos`} key={index}>
+                            <div onClick={() => clickHandler(r)} className={'transition text-gray-700 flex justify-between w-full px-4 py-2 border-2 text-sm leading-5 text-left hover:bg-gray-300 rounded-md'}>{r}</div>
+                          </Link>
+                      ))
+                    }
+                  </div>
+
+                </div>
+              : ''
+
           }
         </div>
       </>
