@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 
 import RepoBase from './RepoBase'
 import actions from '../../redux/actions'
-import RepoLoader from '../RepoLoader'
 
 const Repo = ({ repo, type }) => {
   const dispatch = useDispatch()
@@ -13,54 +12,29 @@ const Repo = ({ repo, type }) => {
     dispatch(actions.app.showModal())
   }
 
-  if (type === 'trending') {
-    return (
-        <Link to={`/trending/users/${repo.owner.login}/repos/${repo.name}`}>
-          <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded border-b'} onClick={showModal}>
-            <div className={'flex items-center space-x-2 mb-3'}>
-              <div className={'text-sm'}>
-            <span className={'text-gray-500'}>
-              {repo.owner.login}．{repo.pushed_at.substring(0, 10)}
-            </span>
-              </div>
-            </div>
-            <RepoBase repo={repo} />
-          </div>
-        </Link>
-    )
-  } else if (type === 'user') {
-    return (
-        <Link to={`/users/${repo.owner.login}/repos/${repo.name}`}>
-          <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded border-b'} onClick={showModal}>
-            <div className={'flex items-center space-x-2 mb-3'}>
-              <div className={'text-sm'}>
-            <span className={'text-gray-500'}>
-              {repo.pushed_at.substring(0, 10)}．{repo.language}
-            </span>
-              </div>
-            </div>
-            <RepoBase repo={repo} />
-          </div>
-        </Link>
-    )
-  } else if (type === 'topic') {
-    return (
-        <Link to={`/topic/${repo.owner.login}/repos/${repo.name}`}>
-          <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded'} onClick={showModal}>
-            <div className={'flex items-center space-x-2 mb-3'}>
-              <div className={'text-sm'}>
-            <span className={'text-gray-500'}>
-              {repo.pushed_at.substring(0, 10)}．{repo.language}
-            </span>
-              </div>
-            </div>
-            <RepoBase repo={repo} />
-          </div>
-        </Link>
-    )
+  const renderPath = () => {
+    if (type === 'trending') return `/trending/users/${repo.owner.login}/repos/${repo.name}`
+    if (type === 'user') return `/users/${repo.owner.login}/repos/${repo.name}`
   }
+
+  const renderText = () => {
+    if (type === 'trending') return `${repo.owner.login}．${repo.pushed_at.substring(0, 10)}`
+    if (type === 'user') return `${repo.pushed_at.substring(0, 10)}．${repo.language}`
+  }
+
   return (
-      <RepoLoader />
+      <Link to={renderPath()}>
+        <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded border-b'} onClick={showModal}>
+          <div className={'flex items-center space-x-2 mb-3'}>
+            <div className={'text-sm'}>
+            <span className={'text-gray-500'}>
+              {renderText()}
+            </span>
+            </div>
+          </div>
+          <RepoBase repo={repo} />
+        </div>
+      </Link>
   )
 }
 

@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { Alert } from '@mui/material'
-import Snackbar from '@mui/material/Snackbar'
+import { Alert, Snackbar } from '@mui/material'
 
 import actions from '../../redux/actions'
 import { useDispatch } from 'react-redux'
