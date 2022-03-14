@@ -5,8 +5,9 @@ import { useDispatch } from 'react-redux'
 import Statistic from './components/Statistic'
 import RepoBody from './components/RepoBody'
 import RepoHeader from './components/RepoHeader'
-import actions from '../../redux/actions'
 import RepoPageLoader from './components/RepoPageLoader'
+
+import actions from '../../redux/actions'
 
 const RepoPage = () => {
   const { username, repoName } = useParams()
