@@ -5,11 +5,13 @@ import { useParams, Outlet } from 'react-router-dom'
 import Header from '../../components/RepoList/components/Header'
 import RepoList from '../../components/RepoList'
 import Repo from '../../components/Repo'
-import { useUserRepo } from '../../hooks/repo'
-import actions from '../../redux/actions'
 import RepoLoader from '../../components/RepoLoader'
-import { useLoading } from '../../hooks/app'
 import ExistNoRepo from '../../components/ExistNoRepo'
+
+import { useUserRepo } from '../../hooks/repo'
+import { useLoading } from '../../hooks/app'
+
+import actions from '../../redux/actions'
 
 const UserSearch = () => {
   const AllRows = ({ index, key, style }) => {

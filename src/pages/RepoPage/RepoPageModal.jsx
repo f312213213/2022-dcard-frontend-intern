@@ -5,9 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import RepoHeader from './components/RepoHeader'
 import RepoBody from './components/RepoBody'
 import Statistic from './components/Statistic'
-import actions from '../../redux/actions'
 import { useModal } from '../../hooks/app'
 import RepoPageLoader from './components/RepoPageLoader'
+
+import actions from '../../redux/actions'
 
 const RepoPageModal = () => {
   const dispatch = useDispatch()

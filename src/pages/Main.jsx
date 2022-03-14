@@ -1,9 +1,10 @@
 import React from 'react'
 
 import AppRouter from './AppRouter'
+import SEO from './SEO'
+
 import Snackbars from '../components/Snackbars'
 import Navbar from '../components/Navbar'
-import SEO from './SEO'
 
 const Main = () => {
   return (

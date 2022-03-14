@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import InputSearch from './components/InputSearch'
 import RecentSearch from './components/RecentSearch'
 import LinkToHome from './components/LinkToHome'
 import MobileSearch from './components/MobileSearch'
 import ToggleMobile from './components/ToggleMobile'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+
 import actions from '../../redux/actions'
 
 const Navbar = () => {
