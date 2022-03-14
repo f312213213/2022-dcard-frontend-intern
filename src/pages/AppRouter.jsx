@@ -5,10 +5,12 @@ import UserSearch from './UserSearch'
 import RepoPage from './RepoPage'
 import Trending from './Trending'
 import RepoPageModal from './RepoPage/RepoPageModal'
+
 import { useModal } from '../hooks/app'
 
 const AppRouter = () => {
   const modal = useModal()
+
   useEffect(() => {
     if (modal) {
       document.body.style.overflow = 'hidden'
@@ -16,6 +18,7 @@ const AppRouter = () => {
       document.body.style.overflow = 'unset'
     }
   }, [modal])
+
   return (
       <div className={'md:bg-dcard-dark-blue'}>
         <Routes>
