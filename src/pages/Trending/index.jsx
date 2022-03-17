@@ -55,16 +55,16 @@ const Trending = () => {
             <Header header={'Trending'}/>
             {
               repos.length !== 0 &&
-                <RepoList type={'trending'} username={''} renderer={AllRows} count={repos.length === 0 ? 10 : repos.length}/>
+                <RepoList
+                    type={'trending'}
+                    username={''}
+                    renderer={AllRows}
+                    count={repos.length === 0 ? 10 : repos.length}
+                />
             }
 
             {
               loading && <RepoLoader />
-            }
-
-            {
-                repos.length === 0 && !loading &&
-                <ExistNoRepo />
             }
           </div>
         </div>

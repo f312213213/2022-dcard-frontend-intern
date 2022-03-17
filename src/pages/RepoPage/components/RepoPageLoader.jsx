@@ -14,10 +14,10 @@ const RepoPageLoader = () => {
           </div>
             <button className={'flex items-center justify-center transition p-2 text-white rounded'}>
                   <span className={'hidden lg:block'}>
-                    <Skeleton variant={'text'} width={100} height={50} />
+                    <Skeleton variant={'text'} width={100} height={60} />
                   </span>
               <div className={'block lg:hidden'}>
-                <Skeleton variant={'text'} width={50} height={50} />
+                <Skeleton variant={'text'} width={60} height={60} />
               </div>
             </button>
         </header>

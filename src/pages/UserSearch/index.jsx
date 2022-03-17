@@ -51,7 +51,12 @@ const UserSearch = () => {
             <Header header={`${username}' s repo`}/>
             {
               repos.length !== 0 &&
-                <RepoList type={'user'} username={username} renderer={AllRows} count={repos.length}/>
+                <RepoList
+                    type={'user'}
+                    username={username}
+                    renderer={AllRows}
+                    count={repos.length === 0 ? 10 : repos.length}
+                />
             }
 
             {
