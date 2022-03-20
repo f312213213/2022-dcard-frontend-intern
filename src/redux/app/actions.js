@@ -30,7 +30,7 @@ export const closeSnackbar = () => ({
   type: ActionTypes.CLOSE_SNACKBAR
 })
 
-export const getTenMoreRepo = (dispatch, username, type) => async () => {
+export const getTenMoreRepo = (username, type) => async (dispatch) => {
   const userRepoPage = store.getState().userRepo.page
   const trendingRepoPage = store.getState().trendingRepo.page
   try {
@@ -58,13 +58,11 @@ export const getTenMoreRepo = (dispatch, username, type) => async () => {
       dispatch(actions.trendingRepo.trendingRepoAdd(dispatch, trendingRepo))
     }, 500)
   } catch (err) {
-    if (err.message.indexOf('API') !== -1) {
-      dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
-    }
+    return dispatch(actions.app.handleError(err))
   }
 }
 
-export const getSingleRepoData = (dispatch, username, repoName, setRepo, isCancelled) => async () => {
+export const getSingleRepoData = (username, repoName, setRepo, isCancelled) => async (dispatch) => {
   try {
     const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`)
     if (response.status !== 200) {
@@ -73,10 +71,16 @@ export const getSingleRepoData = (dispatch, username, repoName, setRepo, isCance
     const responseJson = await response.json()
     if (!isCancelled.current) setRepo(responseJson)
   } catch (err) {
-    if (err.message === 'Not Found') {
-      dispatch(actions.app.showSnackbar('error', '找不到這個 Repo ！'))
-    } else if (err.message.indexOf('API') !== -1) {
-      dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
-    }
+    return dispatch(actions.app.handleError(err))
   }
+}
+
+export const handleError = (err) => (dispatch) => {
+  if (err.message === 'Not Found') {
+    return dispatch(actions.app.showSnackbar('error', '找不到這個 Repo ！'))
+  }
+  if (err.message.indexOf('API') !== -1) {
+    return dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
+  }
+  return dispatch(actions.app.showSnackbar('error', '現在出了點問題，請稍後再試！'))
 }

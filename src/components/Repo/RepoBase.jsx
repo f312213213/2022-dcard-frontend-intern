@@ -5,9 +5,9 @@ import { BiGitRepoForked } from 'react-icons/bi'
 const RepoBase = ({ repo }) => {
   return (
       <div>
-        <div className={'font-bold text-lg'}>
+        <h2 className={'font-bold text-lg'}>
           {repo.name}
-        </div>
+        </h2>
         <span className={'text-sm text-gray-500 text-truncate'}>
           {repo.description
             ? repo.description.length > 100 ? repo.description.substring(0, 100) + '...' : repo.description

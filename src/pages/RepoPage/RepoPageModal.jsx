@@ -42,7 +42,7 @@ const RepoPageModal = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(actions.app.getSingleRepoData(dispatch, username, repoName, setRepo, isCancelled))
+    dispatch(actions.app.getSingleRepoData(username, repoName, setRepo, isCancelled))
     return () => {
       isCancelled.current = true
     }

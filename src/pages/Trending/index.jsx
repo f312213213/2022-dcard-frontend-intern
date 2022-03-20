@@ -39,7 +39,7 @@ const Trending = () => {
 
   useEffect(() => {
     if (repos.length < 1) {
-      dispatch(actions.trendingRepo.trendingGetFirstTenRepo(dispatch))
+      dispatch(actions.trendingRepo.trendingGetFirstTenRepo())
     }
   }, [])
 

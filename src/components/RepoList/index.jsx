@@ -17,7 +17,7 @@ const RepoList = ({ renderer, count, type, username }) => {
   const handleScroll = () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !loading && haveMore) {
       dispatch(actions.app.loadingTrue())
-      dispatch(actions.app.getTenMoreRepo(dispatch, username, type))
+      dispatch(actions.app.getTenMoreRepo(username, type))
     }
   }
 
@@ -30,7 +30,7 @@ const RepoList = ({ renderer, count, type, username }) => {
       <div className={'divide-y divide-gray-300 w-full px-4 min-h-screen'}>
           <WindowScroller>
             {({ height, scrollTop }) => (
-                <div className={'h-full flex-1'}>
+                <main className={'h-full flex-1'}>
                   <AutoSizer disableHeight>
                     {({ width }) => (
                           <List
@@ -45,7 +45,7 @@ const RepoList = ({ renderer, count, type, username }) => {
                           />
                     )}
                   </AutoSizer>
-                </div>
+                </main>
             )}
           </WindowScroller>
       </div>

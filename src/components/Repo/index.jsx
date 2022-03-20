@@ -26,13 +26,9 @@ const Repo = ({ repo, type }) => {
   return (
       <Link to={renderPath()}>
         <div className={'w-full flex flex-col p-4 hover:bg-gray-200 transition rounded border-b'} onClick={showModal}>
-          <div className={'flex items-center space-x-2 mb-3'}>
-            <div className={'text-sm'}>
-            <span className={'text-gray-500'}>
-              {renderText()}
-            </span>
-            </div>
-          </div>
+          <h4 className={'text-sm text-gray-500 mb-3'}>
+            {renderText()}
+          </h4>
           <RepoBase repo={repo} />
         </div>
       </Link>

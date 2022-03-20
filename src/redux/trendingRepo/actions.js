@@ -30,7 +30,7 @@ export const trendingRepoNoMore = (dispatch) => {
   }
 }
 
-export const trendingGetFirstTenRepo = (dispatch) => async () => {
+export const trendingGetFirstTenRepo = () => async (dispatch) => {
   dispatch(actions.app.loadingTrue())
   try {
     const response = await fetch('https://api.github.com/search/repositories?q=stars:%3E10000&sort=stars&per_page=10&page=1')
@@ -41,8 +41,6 @@ export const trendingGetFirstTenRepo = (dispatch) => async () => {
     const trendingRepo = responseJson.items
     dispatch(actions.trendingRepo.trendingRepoInit(dispatch, trendingRepo))
   } catch (err) {
-    if (err.message.indexOf('API') !== -1) {
-      dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
-    }
+    return dispatch(actions.app.handleError(err))
   }
 }

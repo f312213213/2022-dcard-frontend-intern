@@ -40,7 +40,7 @@ const UserSearch = () => {
   useEffect(() => {
     if (username === searchName) return
     setSearchName(username)
-    dispatch(actions.userRepo.userGetFirstTenRepo(dispatch, username))
+    dispatch(actions.userRepo.userGetFirstTenRepo(username))
   }, [username])
 
   return (

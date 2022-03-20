@@ -18,20 +18,19 @@ export const userRepoAdd = (dispatch, addedRepo) => {
 }
 
 export const userRepoClean = (dispatch) => {
-  dispatch(actions.app.loadingFalse())
   return {
     type: actionTypes.USER_REPO_CLEAN
   }
 }
 
 export const userRepoNoMore = (dispatch) => {
-  dispatch(actions.app.showSnackbar('info', '沒有更多Repo囉！'))
+  dispatch(actions.app.showSnackbar('info', '這是最後一頁了！'))
   return {
     type: actionTypes.USER_REPO_NO_MORE
   }
 }
 
-export const userGetFirstTenRepo = (dispatch, username) => async () => {
+export const userGetFirstTenRepo = (username) => async (dispatch) => {
   dispatch(actions.userRepo.userRepoClean(dispatch))
   dispatch(actions.app.loadingTrue())
   try {
@@ -43,14 +42,10 @@ export const userGetFirstTenRepo = (dispatch, username) => async () => {
     if (responseJson.length < 10) {
       dispatch(actions.userRepo.userRepoNoMore(dispatch))
     }
-    return dispatch(actions.userRepo.userRepoInit(dispatch, responseJson))
+    dispatch(actions.userRepo.userRepoInit(dispatch, responseJson))
+    return dispatch(actions.app.loadingFalse())
   } catch (err) {
-    if (err.message === 'Not Found') {
-      dispatch(actions.userRepo.userRepoClean(dispatch))
-      return dispatch(actions.app.showSnackbar('error', '找不到這個使用者 ！'))
-    }
-    if (err.message.indexOf('API') !== -1) {
-      return dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
-    }
+    dispatch(actions.app.handleError(err))
+    return dispatch(actions.app.loadingFalse())
   }
 }
