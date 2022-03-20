@@ -3,7 +3,8 @@ import ActionTypes from './ActionTypes'
 const defaultState = {
   repos: [],
   page: 2,
-  haveMore: true
+  haveMore: true,
+  lastUsername: ''
 }
 
 export default (state = defaultState, action) => {
@@ -11,7 +12,8 @@ export default (state = defaultState, action) => {
     case ActionTypes.USER_REPO_INIT:
       return {
         ...state,
-        repos: action.payload
+        repos: action.payload.initRepo,
+        lastUsername: action.payload.username
       }
 
     case ActionTypes.USER_REPO_ADD:

@@ -31,3 +31,7 @@ export const useTrendingRepoPage = () => {
 export const useTrendingHaveMore = () => {
   return useSelector(state => state.trendingRepo.haveMore)
 }
+
+export const useLastUsername = () => {
+  return useSelector(state => state.userRepo.lastUsername)
+}

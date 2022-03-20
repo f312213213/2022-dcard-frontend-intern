@@ -1,11 +1,14 @@
 import actionTypes from './ActionTypes'
 import actions from '../actions'
 
-export const userRepoInit = (dispatch, initRepo) => {
+export const userRepoInit = (dispatch, initRepo, username) => {
   dispatch(actions.app.loadingFalse())
   return {
     type: actionTypes.USER_REPO_INIT,
-    payload: initRepo
+    payload: {
+      initRepo: initRepo,
+      username: username
+    }
   }
 }
 
@@ -42,7 +45,7 @@ export const userGetFirstTenRepo = (username) => async (dispatch) => {
     if (responseJson.length < 10) {
       dispatch(actions.userRepo.userRepoNoMore(dispatch))
     }
-    dispatch(actions.userRepo.userRepoInit(dispatch, responseJson))
+    dispatch(actions.userRepo.userRepoInit(dispatch, responseJson, username))
     return dispatch(actions.app.loadingFalse())
   } catch (err) {
     dispatch(actions.app.handleError(err))

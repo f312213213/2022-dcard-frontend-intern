@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams, Outlet } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ import Repo from '../../components/Repo'
 import RepoLoader from '../../components/RepoLoader'
 import ExistNoRepo from '../../components/ExistNoRepo'
 
-import { useUserRepo } from '../../hooks/repo'
+import { useLastUsername, useUserRepo } from '../../hooks/repo'
 import { useLoading } from '../../hooks/app'
 
 import actions from '../../redux/actions'
@@ -27,7 +27,7 @@ const UserSearch = () => {
   const repos = useUserRepo()
   const dispatch = useDispatch()
   const loading = useLoading()
-  const [searchName, setSearchName] = useState('')
+  const lastUsername = useLastUsername()
   const metaData = {
     title: `「${username}」 的搜尋結果 | Github Explorer`,
     description: `在 Github 上搜尋「${username}」的結果`
@@ -35,11 +35,10 @@ const UserSearch = () => {
 
   useEffect(() => {
     dispatch(actions.seo.seoChange(metaData))
-  }, [])
+  }, [username])
 
   useEffect(() => {
-    if (username === searchName) return
-    setSearchName(username)
+    if (lastUsername.toLowerCase() === username.toLowerCase()) return
     dispatch(actions.userRepo.userGetFirstTenRepo(username))
   }, [username])
 
@@ -48,7 +47,7 @@ const UserSearch = () => {
         <Outlet />
         <div className={'Page'}>
           <div className={'PageContainer'}>
-            <Header header={`${username}' s repo`}/>
+            <Header header={`${username.toLowerCase()}' s repo`}/>
             {
               repos.length !== 0 &&
                 <RepoList
