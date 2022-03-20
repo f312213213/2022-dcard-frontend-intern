@@ -59,7 +59,7 @@ const Trending = () => {
                     type={'trending'}
                     username={''}
                     renderer={AllRows}
-                    count={repos.length === 0 ? 10 : repos.length}
+                    count={repos.length}
                 />
             }
 

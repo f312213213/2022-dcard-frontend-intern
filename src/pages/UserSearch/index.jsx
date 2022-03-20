@@ -55,7 +55,7 @@ const UserSearch = () => {
                     type={'user'}
                     username={username}
                     renderer={AllRows}
-                    count={repos.length === 0 ? 10 : repos.length}
+                    count={repos.length}
                 />
             }
 
