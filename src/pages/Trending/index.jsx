@@ -16,7 +16,7 @@ import actions from '../../redux/actions'
 const Trending = () => {
   const AllRows = ({ index, key, style }) => {
     return (
-        <div key={key} style={style}>
+        <div key={repos[index].id} style={style}>
           {
             repos[index] ? <Repo repo={repos[index]} type={'trending'} /> : <RepoLoader />
           }

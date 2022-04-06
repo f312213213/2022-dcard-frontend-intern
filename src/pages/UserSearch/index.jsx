@@ -16,7 +16,7 @@ import actions from '../../redux/actions'
 const UserSearch = () => {
   const AllRows = ({ index, key, style }) => {
     return (
-        <div key={key} style={style}>
+        <div key={repos[index].id} style={style}>
           {
             repos[index] ? <Repo repo={repos[index]} type={'user'} /> : <RepoLoader />
           }

@@ -76,13 +76,13 @@ export const getSingleRepoData = (username, repoName, setRepo, isCancelled) => a
 }
 
 export const handleError = (err) => (dispatch) => {
-  if (err.documentation_url.indexOf('list-repositories-for-a-user') !== -1) {
+  if (err.documentation_url.includes('list-repositories-for-a-user')) {
     return dispatch(actions.app.showSnackbar('error', '找不到這個使用者！'))
   }
-  if (err.documentation_url.indexOf('get-a-repository') !== -1) {
+  if (err.documentation_url.includes('get-a-repository')) {
     return dispatch(actions.app.showSnackbar('error', '找不到這個 repo ！'))
   }
-  if (err.message.indexOf('API') !== -1) {
+  if (err.message.includes('API')) {
     return dispatch(actions.app.showSnackbar('error', 'API 呼叫次數達到伺服器上限了！'))
   }
   return dispatch(actions.app.showSnackbar('error', '現在出了點問題，請稍後再試！'))
